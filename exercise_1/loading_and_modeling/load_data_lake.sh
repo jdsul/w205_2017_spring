@@ -1,5 +1,8 @@
+
+
 #! /bin/bash
 
+#Get current directory
 MY_DIR=$(pwd)
 
 #Make staging directories
@@ -18,7 +21,7 @@ unzip medicare_data.zip
 #Modifying each of the 5 tables
 hospitals_OLD="Hospital General Information.csv"
 hospitals_NEW="hospitals.csv"
-tail -n +2 "$hospitals_NEW" >$hospitals_NEW
+tail -n +2 "$hospitals_OLD" >$hospitals_NEW
 
 effective_OLD="Timely and Effective Care - Hospital.csv"
 effective_NEW="effective_care.csv"
@@ -36,17 +39,25 @@ survey_OLD="hvbp_hcahps_11_10_2016.csv"
 survey_NEW="survey_responses.csv"
 tail -n +2 "$survey_OLD" >$survey_NEW
 
-
-cd /home/w205/staging/exercise_1
 #Creating the hospital compare directory in HDFS
 hdfs dfs -mkdir /user/w205/hospital_compare
 
-#Placing each of the new files into HDFS
-hdfs dfs -put hospitals.csv /user/w205/hospital_compare
-hdfs dfs -put effective_care.csv /user/w205/hospital_compare
-hdfs dfs -put readmissions.csv /user/w205/hospital_compare
-hdfs dfs -put measures.csv /user/w205/hospital_compare
-hdfs dfs -put survey_responses.csv /user/w205/hospital_compare
+#Create a directory for each file a placing each of the new files into HDFS
+hdfs dfs -mkdir /user/w205/hospital_compare/hospitals
+hdfs dfs -put hospitals.csv /user/w205/hospital_compare/hospitals
+
+hdfs dfs -mkdir /user/w205/hospital_compare/effective_care
+hdfs dfs -put effective_care.csv /user/w205/hospital_compare/effective_care
+
+hdfs dfs -mkdir /user/w205/hospital_compare/readmissions
+hdfs dfs -put readmissions.csv /user/w205/hospital_compare/readmissions
+
+hdfs dfs -mkdir /user/w205/hospital_compare/measures
+hdfs dfs -put measures.csv /user/w205/hospital_compare/measures
+
+hdfs dfs -mkdir /user/w205/hospital_compare/survey_responses
+hdfs dfs -put survey_responses.csv /user/w205/hospital_compare/survey_responses
+
 
 cd $MY_DIR
 
