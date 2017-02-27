@@ -1,0 +1,23 @@
+Question 1: What are the best hospitals?
+
+I chose to focus on mortality and readmission rates to determine what the best hospitals are. I did this for several reasons. The first is those rates are tracked only for some of the most serious patients so they measure how the hospital performs under the most challenging conditions. A hospital who is treating those patients well is most likely also treating their less serious patients well. Furthermore the readmission rates give an indication of how well the hospital communicates with patients after they have left, which is one of the most challenging aspects of medical care. In order for a hospital to keep readmission rates low they must have strong processes in place to ensure patients continue their care properly after they've left. A hospital with a good procedures in the more challenging external environment is likely to also be well run internally.
+
+There are 6 readmission and 6 mortality metrics in the dataset, for the same 6 conditions. Those conditions/procedures are coronary artery bypass graft (CABG), acute myocardial infarction (AMI), chronic obstructive pulmonary disease (COPD), heart failure, pneumonia and stroke. 
+
+For each of those of the 6 mortality metrics I calculated the rank of each hospital and then found it's average ranking across all 6. There are many hospitals missing some or all values in these metrics, for those hospitals the averages were calculated with what data was available. I did the same for readmission metrics. Then I averaged those two metrics to come up with one combined metric for the hospital across all 12 of the metrics.
+
+
+The columns returned below are provider_id, hospital_name, the readmission average rank, the mortality average rank, the combined average rank and then the overall ranking. top 10 hospitals are:
+
+
+
+430095  AVERA HEART HOSPITAL OF SOUTH DAKOTA    133     215     174.0   1
+170186	KANSAS HEART HOSPITAL	588	85	336.5	2
+360068	TOLEDO HOSPITAL THE	412	274	343.0	3
+161348	CLARKE COUNTY HOSPITAL	412	278	345.0	4
+450702	LONGVIEW REGIONAL MEDICAL CENTER	330	387	358.5	5
+050763	SILVER LAKE MEDICAL CENTER	679	133	406.0	6
+220035	NORTH SHORE MEDICAL CENTER	607	217	412.0	7
+260179	ST LUKES HOSPITAL	636	237	436.5	8
+160029	MERCY HOSPITAL	82	819	450.5	9
+220101	NEWTON-WELLESLEY HOSPITAL	666	292	479.0	10 

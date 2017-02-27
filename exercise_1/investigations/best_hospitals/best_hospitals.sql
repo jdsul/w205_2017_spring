@@ -274,6 +274,9 @@ pn_readmissions_rank, pn_score,
 stk_readmissions_rank, stk_score
 ;
 
+DROP TABLE hospital_rankings;
+
+CREATE EXTERNAL TABLE hospital_rankings as 
 select r.provider_id, r.hospital_name, r.avg_rank as readmission_avg_rank,
 m.avg_rank as mortality_avg_rank, 
 (r.avg_rank + m.avg_rank)/2 as combined_avg_rank
@@ -281,9 +284,14 @@ from readmissions_rankings r
 join mortality_rankings m on m.provider_id = r.provider_id
 group by r.provider_id, r.hospital_name, r.avg_rank, m.avg_rank
 having combined_avg_rank > 0
-order by combined_avg_rank asc
-limit 10
 ;
+
+SELECT provider_id, hospital_name, readmission_avg_rank, mortality_avg_rank,
+combined_avg_rank, 
+RANK() OVER (ORDER BY combined_avg_rank asc) AS hospital_ranking 
+from hospital_rankings
+order by combined_avg_rank asc
+limit 10;
 
 
 
