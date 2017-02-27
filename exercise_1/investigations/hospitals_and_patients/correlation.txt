@@ -1,0 +1,13 @@
+
+
+Question 4. Are Survey Responses Correlated with Outcomes?
+
+To answer this I decided to measure outcomes the same way I did for the first two questions, with a ranking using readmission and mortality metrics. 
+
+To measure survey response information I made a table where I summed the performance rates for the 7 categories (ignoring the overall category since including that in my overall metric would be redundant) minus their benchmark rates. This allowed me to get a difference from the mean value for the survey responses.
+
+I then brought in the hospital level rankings from question 1 and combined the two datasets on provider ID. 
+
+It is at this point where I began to struggle mightily. I wanted to run a correlation between the overall survey metric I calculated and the hospital rankings but SQL does not support correlation. I then tried to create a table which included averages or standard deviations for both hospital and survey performance data but while getting the summary statistics is easy in a query I could not figure out how to attach them back to the original dataset, which I needed to do in order to determine distance from the mean. Consequently I was stuck without a good way to calculate correlation.
+
+I decided my only option was to just multiply the overall survey number (which at least was positive/negative since I calculated it with the baseline) by the hospital performance ranking. While it's a very poor version of correlation that is still be able to detect some directionality. Running that query I got a number of -1.01, which, given the size of the numbers involved, is extraordinarily close to 0. As such I would conclude that there is no correlation between how good a hospital is and how well reviewed it is.
