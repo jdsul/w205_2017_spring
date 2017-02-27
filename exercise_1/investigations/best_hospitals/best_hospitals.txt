@@ -7,7 +7,7 @@ There are 6 readmission and 6 mortality metrics in the dataset, for the same 6 c
 For each of those of the 6 mortality metrics I calculated the rank of each hospital and then found it's average ranking across all 6. There are many hospitals missing some or all values in these metrics, for those hospitals the averages were calculated with what data was available. I did the same for readmission metrics. Then I averaged those two metrics to come up with one combined metric for the hospital across all 12 of the metrics.
 
 
-The columns returned below are provider_id, hospital_name, the readmission average rank, the mortality average rank, the combined average rank and then the overall ranking. top 10 hospitals are:
+The columns returned below are provider_id, hospital_name, the readmission average rank, the mortality average rank, the combined average rank and then the overallranking. The top 10 hospitals using these metrics are:
 
 
 

@@ -1,0 +1,20 @@
+
+
+Question 2: What are the best states?
+
+To answer this question I decided to take the same approach I did to answer the previous question. If those metrics are good enough to rank individual hospitals they should be good enough to rank the states by the hospitals that are in them. 
+
+The main body of my SQL is therefore the same, but instead of aggregating at the hospital level I aggregate the hospitals at the state level. For all the hospitals in each state I average their readmission ranks and their mortality ranks to produce statewide readmission and mortality rankings. I then average those two rankings to get a single metric which I used to rank the states. That produces the following top 10 list:
+
+DE      1504.5  891.7   1198.1  1
+MA	1713.2	1023.5	1368.4	2
+RI	1621.6	1154.6	1388.1	3
+AZ	1425.0	1372.8	1398.9	4
+NH	1291.7	1532.8	1412.3	5
+CO	1186.5	1667.3	1426.9	6
+HI	1325.9	1552.0	1439.0	7
+UT	1118.9	1763.4	1441.2	8
+TX	1410.5	1511.8	1461.1	9
+ME	1277.0	1686.0	1481.5	10
+
+The columns are state, readmission average ranking, mortality average ranking, overall average and then rank. I rounded everything to a single decimal point to make it easier to read. Using these metrics the top three states are Delaware, Massachussetts and Rhode Island.
