@@ -1,58 +1,35 @@
+#Importing the necessary libraries
 from __future__ import absolute_import, print_function, unicode_literals
-
 from collections import Counter
 from streamparse.bolt import Bolt
-
 import psycopg2
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 
-#Things to think absolute_import
-#1 what do we need to import on libraries
-#2 what do we need to go into initialization
-#initialization run once, process once for every word that comes through
-#3 what do we need to go into process?
-
-
-
+#Creating wordcounter class
 class WordCounter(Bolt):
-
+#Connecting to postgres
     def initialize(self, conf, ctx):
         self.conn = psycopg2.connect(database = "tcount", user = "postgres", password="pass", host = "localhost", port = "5432")
         self.cur = self.conn.cursor()
-
         self.counts = Counter()
-
-
-
-
+#Function for the process of getting the word and updating the postgres table.
     def process(self, tup):
+#Store the word as the first value in the tuple.
         word = tup.values[0]
-        #then update the db. The last thing needs a comma because it needs a list
+#If the word is in postgres increment the count for the word by 1. 
         self.cur.execute("UPDATE tweetwordcount SET count = count + 1 WHERE word = %s", (word,))
-        #Adding a row if the word is not there
+#If the word is not in postgres, insert a new row for the word, set the count equal to 1. 
         if self.cur.rowcount == 0:
             self.cur.execute("INSERT INTO tweetwordcount (word, count) VALUES (%s, 1)",(word,))
+#Commit the changes
         self.conn.commit()
 
-        #Then do the commit of the new word
-
-#down here we need to grab the cursor, update, if it doesn't update commit a new row
-########Everything comes back in unicode, which could be a PITA. If you get compatibility errors, you can use str(word)
-#to convert it to a regular string
-        # Write codes to increment the word count in Postgres
-        # Use psycopg to interact with Postgres
-        # Database name: Tcount 
-        # Table name: Tweetwordcount 
-        # you need to create both the database and the table in advance.
-        
-
-        # Increment the local count
+#Increment and emit the local count
         self.counts[word] += 1
         self.emit([word, self.counts[word]])
 
-        # Log the count - just to see the topology running
-#don't use the concatenation operation, use what's in the other file with the comma space
-#get the code working then come back for some checks to make it fault tolerant
+#Log the count the verify the topology is running.
         self.log('%s: %s' % (word, self.counts[word]))
+
 
 
