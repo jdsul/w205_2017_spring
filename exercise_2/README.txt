@@ -8,6 +8,6 @@ Note you’ll have to add whatever directory levels are above /w205_2017_spring 
 
 2. type “sparse run”
 
-3. The application will run until killed by the user. To kill the application 
+3. The application will run until killed by the user. To kill the application press CTRL+C (Windows) or option+C (MacOS)
 
 4. To query the data go to postgres and connect to the tcount database. The data will be stored in the tweetwordcount table in that database.
